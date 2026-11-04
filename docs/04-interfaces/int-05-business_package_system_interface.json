@@ -1,0 +1,77 @@
+{
+  "document_id": "int-05-business_package_system_interface.json",
+  "schema_version": "0.1.0",
+  "component": "@sdlc/dual-engine-harness",
+  "governance_gate": "gate_1_planning",
+  "status": "approved",
+  "package_manifest_schema": {
+    "type": "object",
+    "required": ["id", "name", "version", "description"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
+      "name": { "type": "string" },
+      "version": { "type": "string" },
+      "description": { "type": "string" },
+      "statecharts": {
+        "type": "object",
+        "properties": {
+          "project_machine_config": { "type": "object" },
+          "work_item_machine_config": { "type": "object" },
+          "stage_routing": { "type": "object" }
+        }
+      },
+      "gates": { "type": "object" },
+      "workflows": { "type": "object" },
+      "agents": { "type": "object" },
+      "tools": { "type": "object" },
+      "skills": { "type": "object" },
+      "schemas": { "type": "object" }
+    }
+  },
+  "package_registry_methods": [
+    {
+      "name": "register_package",
+      "params": ["pkg"],
+      "return_type": "boolean",
+      "description": "registers a business package into the runtime registry"
+    },
+    {
+      "name": "get_package",
+      "params": ["package_id"],
+      "return_type": "object|null",
+      "description": "retrieves an installed package by its unique identifier"
+    },
+    {
+      "name": "list_packages",
+      "params": [],
+      "return_type": "array",
+      "description": "returns an array of all registered business packages"
+    },
+    {
+      "name": "discover_installed_packages",
+      "params": ["options"],
+      "return_type": "array",
+      "description": "scans package directories and manifests to discover installed packages"
+    }
+  ],
+  "harness_methods": [
+    {
+      "name": "get_installed_packages",
+      "params": [],
+      "return_type": "array",
+      "description": "returns all installed packages registered with the harness"
+    },
+    {
+      "name": "get_package",
+      "params": ["package_id"],
+      "return_type": "object|null",
+      "description": "retrieves an installed package by identifier"
+    },
+    {
+      "name": "register_package",
+      "params": ["pkg"],
+      "return_type": "boolean",
+      "description": "dynamically registers an additional business package"
+    }
+  ]
+}

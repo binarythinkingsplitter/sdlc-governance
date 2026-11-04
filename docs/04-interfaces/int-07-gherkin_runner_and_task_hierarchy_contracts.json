@@ -1,0 +1,25 @@
+{
+  "document_id": "int-07-gherkin_runner_and_task_hierarchy_contracts.json",
+  "schema_version": "0.1.0",
+  "component": "@sdlc/dual-engine-harness",
+  "governance_gate": "gate_1_planning",
+  "status": "approved",
+  "work_breakdown_methods": [
+    { "name": "create_task", "params": ["options"], "return_type": "object", "description": "creates task folder with generic task.md and tasks/ child directory" },
+    { "name": "add_child_task", "params": ["task_slug", "options"], "return_type": "object", "description": "creates numbered descriptive child task in tasks/ directory" },
+    { "name": "list_tasks", "params": [], "return_type": "array", "description": "lists all tasks and their child tasks" },
+    { "name": "validate_hierarchy", "params": ["task_slug"], "return_type": "object", "description": "verifies task structure has no undefined or missing files" }
+  ],
+  "gherkin_runner_methods": [
+    { "name": "given", "params": ["pattern", "fn"], "return_type": "runner", "description": "registers a given step handler" },
+    { "name": "when", "params": ["pattern", "fn"], "return_type": "runner", "description": "registers a when step handler" },
+    { "name": "then", "params": ["pattern", "fn"], "return_type": "runner", "description": "registers a then step handler" },
+    { "name": "step", "params": ["pattern", "fn"], "return_type": "runner", "description": "registers a universal step handler" },
+    { "name": "execute_scenario", "params": ["scenario", "world"], "return_type": "promise<object>", "description": "executes a parsed scenario" },
+    { "name": "execute_feature", "params": ["feature_text", "initial_world"], "return_type": "promise<object>", "description": "executes an entire gherkin feature" },
+    { "name": "bind_to_node_test", "params": ["test_fn", "feature_text", "setup_fn"], "return_type": "void", "description": "binds scenarios directly to node:test runner" }
+  ],
+  "parser_functions": [
+    { "name": "parse_gherkin_feature", "params": ["text"], "return_type": "object", "description": "parses gherkin text into structured feature ast" }
+  ]
+}

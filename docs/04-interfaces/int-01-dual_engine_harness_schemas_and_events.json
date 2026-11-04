@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "dual_engine_sdlc_harness_event_and_state_schemas",
+  "description": "declarative schemas for xstate v5 macro statechart events, mastra v1 workflow contracts, and cryptographic receipts",
+  "definitions": {
+    "macro_statechart_context": {
+      "type": "object",
+      "required": [
+        "session_id",
+        "project_name",
+        "active_phase",
+        "artefacts",
+        "gate_receipts",
+        "task_dag",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "session_id": { "type": "string" },
+        "project_name": { "type": "string" },
+        "active_phase": {
+          "type": "string",
+          "enum": [
+            "phase_00_inception",
+            "phase_01_specifications",
+            "phase_02_architecture",
+            "phase_03_tdd_red",
+            "phase_04_tdd_green",
+            "phase_05_refactor",
+            "phase_06_security_review",
+            "phase_07_qa_verification",
+            "phase_08_release",
+            "phase_09_continuous_learning",
+            "idle",
+            "gate_blocked"
+          ]
+        },
+        "active_gate": {
+          "type": ["string", "null"],
+          "enum": [
+            "gate_1_planning",
+            "gate_2_implementation",
+            "gate_3_qa_security",
+            "gate_4_release",
+            null
+          ]
+        },
+        "artefacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["artefact_id", "phase", "path", "sha256", "validated_at"],
+            "properties": {
+              "artefact_id": { "type": "string" },
+              "phase": { "type": "string" },
+              "path": { "type": "string" },
+              "sha256": { "type": "string" },
+              "validated_at": { "type": "integer" }
+            }
+          }
+        },
+        "gate_receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["gate_id", "receipt_path", "merkle_root", "signature", "sealed_at"],
+            "properties": {
+              "gate_id": { "type": "string" },
+              "receipt_path": { "type": "string" },
+              "merkle_root": { "type": "string" },
+              "signature": { "type": "string" },
+              "sealed_at": { "type": "integer" }
+            }
+          }
+        },
+        "task_dag": {
+          "type": "object",
+          "required": ["nodes", "edges"],
+          "properties": {
+            "nodes": { "type": "array", "items": { "$ref": "#/definitions/task_dag_node" } },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["from", "to"],
+                "properties": {
+                  "from": { "type": "string" },
+                  "to": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "created_at": { "type": "integer" },
+        "updated_at": { "type": "integer" }
+      }
+    },
+    "task_dag_node": {
+      "type": "object",
+      "required": ["task_id", "name", "phase", "agent_role", "status", "depends_on"],
+      "properties": {
+        "task_id": { "type": "string" },
+        "name": { "type": "string" },
+        "phase": { "type": "string" },
+        "agent_role": {
+          "type": "string",
+          "enum": ["planner", "coder", "reviewer", "evaluator", "security_auditor"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed", "failed", "blocked"]
+        },
+        "depends_on": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "cryptographic_gate_receipt": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "gate_id",
+        "phase",
+        "project",
+        "git_commit",
+        "merkle_root",
+        "verified_artefacts",
+        "issuer",
+        "signature",
+        "sealed_at"
+      ],
+      "properties": {
+        "receipt_id": { "type": "string" },
+        "gate_id": {
+          "type": "string",
+          "enum": [
+            "gate_1_planning",
+            "gate_2_implementation",
+            "gate_3_qa_security",
+            "gate_4_release"
+          ]
+        },
+        "phase": { "type": "string" },
+        "project": { "type": "string" },
+        "git_commit": { "type": "string" },
+        "merkle_root": { "type": "string" },
+        "verified_artefacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "sha256"],
+            "properties": {
+              "path": { "type": "string" },
+              "sha256": { "type": "string" }
+            }
+          }
+        },
+        "issuer": { "type": "string" },
+        "signature": { "type": "string" },
+        "sealed_at": { "type": "integer" }
+      }
+    }
+  }
+}

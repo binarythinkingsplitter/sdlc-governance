@@ -1,0 +1,40 @@
+{
+  "document_id": "int-06-code_driven_document_builder_interface.json",
+  "schema_version": "0.1.0",
+  "component": "@sdlc/dual-engine-harness",
+  "governance_gate": "gate_1_planning",
+  "status": "approved",
+  "builder_methods": [
+    { "name": "title", "params": ["text"], "return_type": "builder", "description": "sets the document title" },
+    { "name": "description", "params": ["text"], "return_type": "builder", "description": "sets the document executive summary" },
+    { "name": "document_id", "params": ["id"], "return_type": "builder", "description": "sets formal document id" },
+    { "name": "status", "params": ["status"], "return_type": "builder", "description": "sets review status (e.g. approved, proposed)" },
+    { "name": "author", "params": ["author"], "return_type": "builder", "description": "sets author identity" },
+    { "name": "date", "params": ["date_str"], "return_type": "builder", "description": "sets publication date string" },
+    { "name": "section.create", "params": ["section_id"], "return_type": "section_builder", "description": "creates a new section and returns section builder" },
+    { "name": "render", "params": [], "return_type": "string", "description": "renders the document into formatted markdown" },
+    { "name": "to_markdown", "params": [], "return_type": "string", "description": "alias for render()" },
+    { "name": "save", "params": ["file_path"], "return_type": "object", "description": "saves rendered markdown to disk safely" }
+  ],
+  "section_builder_methods": [
+    { "name": "heading", "params": ["text"], "return_type": "section_builder", "description": "sets section heading" },
+    { "name": "contents", "params": ["text"], "return_type": "section_builder", "description": "sets section body text" },
+    { "name": "text", "params": ["text"], "return_type": "section_builder", "description": "appends text paragraph" },
+    { "name": "code", "params": ["lang", "snippet"], "return_type": "section_builder", "description": "appends fenced code block" },
+    { "name": "table", "params": ["headers", "rows"], "return_type": "section_builder", "description": "appends markdown table" },
+    { "name": "list", "params": ["items"], "return_type": "section_builder", "description": "appends bullet list" },
+    { "name": "section.create", "params": ["next_id"], "return_type": "section_builder", "description": "chains to creating next section" },
+    { "name": "render", "params": [], "return_type": "string", "description": "delegates to parent document render" },
+    { "name": "save", "params": ["file_path"], "return_type": "object", "description": "delegates to parent document save" }
+  ],
+  "factory_exports": [
+    "create_document_builder",
+    "prd",
+    "adr",
+    "threat_model",
+    "test_report",
+    "release",
+    "retrospective",
+    "doc"
+  ]
+}

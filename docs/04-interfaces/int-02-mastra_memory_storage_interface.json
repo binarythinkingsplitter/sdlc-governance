@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mastra-memory-storage-interface",
+  "description": "canonical json schema interface contract for mastra-memory-storage",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "unique component or transaction identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "human-readable component name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "idle",
+        "completed",
+        "decommissioned"
+      ],
+      "description": "current operational lifecycle state"
+    },
+    "config": {
+      "type": "object",
+      "description": "component configuration settings",
+      "properties": {
+        "storage_type": {
+          "type": "string",
+          "enum": [
+            "filesystem",
+            "in-memory"
+          ]
+        },
+        "storage_dir": {
+          "type": "string"
+        },
+        "enable_memory": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "iso 8601 timestamp of component creation"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "status"
+  ],
+  "additionalProperties": false
+}

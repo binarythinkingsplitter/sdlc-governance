@@ -1,0 +1,86 @@
+{
+  "name": "@thing/sdlc-governance",
+  "version": "0.1.0",
+  "description": "standalone coupled dual-engine autonomous sdlc development harness integrating macro statechart governance with mastra v1 micro execution",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": {
+    "sdlc-harness": "./bin/cli.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "files": [
+    "bin/",
+    "nuxt/",
+    "src/",
+    "templates/"
+  ],
+  "scripts": {
+    "dev": "nuxi dev nuxt",
+    "start": "nuxi dev nuxt",
+    "studio": "nuxi dev nuxt",
+    "build": "nuxi build nuxt",
+    "preview": "nuxi preview nuxt",
+    "prepare": "nuxi prepare nuxt",
+    "test": "vitest run -c vitest.config.js",
+    "test:ui": "vitest --ui -c vitest.config.js",
+    "test:watch": "vitest -c vitest.config.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./statechart": "./src/MacroStatechartEngine.js",
+    "./dag": "./src/TaskDagEngine.js",
+    "./gatekeeper": "./src/ReviewGatekeeper.js",
+    "./mastra": "./src/MastraExecutionBridge.js",
+    "./immutability": "./src/TestImmutabilityVerifier.js",
+    "./supervisor": "./src/SdlcSupervisor.js",
+    "./work-board": "./src/WorkBoard.js",
+    "./message-bus": "./src/AgentMessageBus.js",
+    "./document-builder": "./src/DocumentBuilder.js",
+    "./document-store": "./src/DocumentEntityStore.js",
+    "./memory": "./src/MastraMemoryStorage.js",
+    "./schemas": "./src/MastraSchemas.js",
+    "./skills": "./src/HarnessSkills.js",
+    "./tools": "./src/HarnessTools.js",
+    "./workflows": "./src/RoleWorkflows.js",
+    "./rules": "./src/SdlcRulesEngine.js",
+    "./catalog": "./src/HarnessCatalog.js",
+    "./package": "./src/BusinessPackage.js",
+    "./sdlc-package": "./src/SdlcPackage.js",
+    "./ecosystem": "./src/MastraEcosystemBridge.js",
+    "./factory": "./src/MastraFactoryBridge.js",
+    "./nuxt-studio": "./src/NuxtMastraStudio.js",
+    "./process-architecture": "./src/SdlcProcessArchitecture.js",
+    "./package.json": "./package.json",
+    "./*": "./src/*.js"
+  },
+  "dependencies": {
+    "@mastra/core": "^1.81.0",
+    "@mastra/factory": "^0.26.0",
+    "@mastra/libsql": "^1.28.0",
+    "@mastra/server": "^1.81.0",
+    "handlebars": "^4.7.10",
+    "mastra": "^1.37.0",
+    "nuxt": "^4.6.3",
+    "pino": "^10.4.0",
+    "vue": "^3.5.44",
+    "xstate": "^5.33.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  },
+  "keywords": [
+    "sdlc",
+    "dual-engine",
+    "statechart",
+    "mastra",
+    "governance",
+    "harness",
+    "standalone"
+  ],
+  "author": "jean-pierre croissant <jp@almost.adult>",
+  "license": "UNLICENSED"
+}
